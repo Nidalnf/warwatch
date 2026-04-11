@@ -34,12 +34,54 @@
     "founded": "1922",
     "type": "Public broadcaster"
   },
+  "cnn": {
+    "name": "CNN",
+    "owner": "Warner Bros. Discovery",
+    "funding": "Advertising, subscriptions",
+    "founded": "1980",
+    "type": "Private"
+  },
   "dw": {
     "name": "DW (Deutsche Welle)",
     "owner": "German federal government",
     "funding": "German federal budget",
     "founded": "1953",
     "type": "State funded, editorially independent by law"
+  },
+  "voa": {
+    "name": "Voice of America",
+    "owner": "US Agency for Global Media, US federal government",
+    "funding": "US federal budget",
+    "founded": "1942",
+    "type": "State"
+  },
+  "nyt": {
+    "name": "New York Times",
+    "owner": "The New York Times Company, Sulzberger family",
+    "funding": "Subscriptions, advertising",
+    "founded": "1851",
+    "type": "Private"
+  },
+  "wapo": {
+    "name": "Washington Post",
+    "owner": "Jeff Bezos, founder of Amazon",
+    "funding": "Subscriptions, advertising",
+    "founded": "1877",
+    "type": "Private"
+  },
+  "theintercept": {
+    "name": "The Intercept",
+    "owner": "First Look Media, Pierre Omidyar founder of eBay",
+    "funding": "Foundation funding, reader donations",
+    "founded": "2014",
+    "type": "Non-profit/Independent"
+  },
+  "democracynow": {
+    "name": "Democracy Now",
+    "owner": "Non-profit, independent",
+    "funding": "Listener donations, foundations",
+    "founded": "1996",
+    "type": "Non-profit/Independent"
   },
   "tehrantimes": {
     "name": "Tehran Times",
@@ -63,13 +105,6 @@
     "type": "Private/Exile"
   },
   "aljazeera": {
-    "name": "Al Jazeera",
-    "owner": "Al Jazeera Media Network",
-    "funding": "Funded by the government of Qatar",
-    "founded": "1996",
-    "type": "State funded"
-  },
-  "aljazeera_israel": {
     "name": "Al Jazeera",
     "owner": "Al Jazeera Media Network",
     "funding": "Funded by the government of Qatar",
@@ -110,6 +145,13 @@
     "funding": "Private. Ownership not fully disclosed publicly.",
     "founded": "2014",
     "type": "Private"
+  },
+  "mondoweiss": {
+    "name": "Mondoweiss",
+    "owner": "Non-profit",
+    "funding": "Reader donations, foundations",
+    "founded": "2006",
+    "type": "Non-profit/Independent"
   },
   "ddnews": {
     "name": "DD News",

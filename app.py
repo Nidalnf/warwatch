@@ -14,53 +14,73 @@ HEADERS = {
 }
 
 FEEDS = {
-    # Russia / Ukraine
-    'tass':             { 'url': 'https://tass.com/rss/v2.xml',                                 'region': 'russia' },
-    'rt':               { 'url': 'https://www.rt.com/rss/news/',                                'region': 'russia' },
-    'kyiv_independent': { 'url': 'https://kyivindependent.com/feed/',                          'region': 'russia' },
-    'ukr_pravda':       { 'url': 'https://www.pravda.com.ua/eng/rss/view_news/',               'region': 'russia' },
-    'bbc':              { 'url': 'https://feeds.bbci.co.uk/news/world/rss.xml',                'region': 'russia' },
-    'cnn':              { 'url': 'http://rss.cnn.com/rss/edition_world.rss',                   'region': 'russia' },
-    'aljazeera':        { 'url': 'https://www.aljazeera.com/xml/rss/all.xml',                  'region': 'russia' },
-    'dw':               { 'url': 'https://rss.dw.com/rdf/rss-en-all',                         'region': 'russia' },
-
     # Iran
-    'tehrantimes':      { 'url': 'https://www.tehrantimes.com/rss',                            'region': 'iran' },
-    'presstv':          { 'url': 'https://www.presstv.ir/rss.xml',                             'region': 'iran' },
-    'iranintl':         { 'url': 'https://www.iranintl.com/en/rss.xml',                        'region': 'iran' },
-    'bbc_iran':         { 'url': 'https://feeds.bbci.co.uk/persian/rss.xml',                   'region': 'iran' },
-    'cnn_iran':         { 'url': 'http://rss.cnn.com/rss/edition_world.rss',                   'region': 'iran' },
-    'aljazeera_iran':   { 'url': 'https://www.aljazeera.com/xml/rss/all.xml',                  'region': 'iran' },
+    'tehrantimes':      { 'url': 'https://www.tehrantimes.com/rss',                             'region': 'iran' },
+    'presstv':          { 'url': 'https://www.presstv.ir/rss.xml',                              'region': 'iran' },
+    'iranintl':         { 'url': 'https://www.iranintl.com/en/rss.xml',                         'region': 'iran' },
+    'bbc_iran':         { 'url': 'https://feeds.bbci.co.uk/persian/rss.xml',                    'region': 'iran' },
+    'cnn_iran':         { 'url': 'http://rss.cnn.com/rss/edition_world.rss',                    'region': 'iran' },
+    'aljazeera_iran':   { 'url': 'https://www.aljazeera.com/xml/rss/all.xml',                   'region': 'iran' },
 
-    # Israel / Gaza
-    'jpost':            { 'url': 'https://www.jpost.com/Rss/RssFeedsHeadlines.aspx',          'region': 'israel' },
-    'timesofisrael':    { 'url': 'https://www.timesofisrael.com/feed/',                        'region': 'israel' },
-    '972mag':           { 'url': 'https://www.972mag.com/feed/',                               'region': 'israel' },
-    'middleeasteye':    { 'url': 'https://www.middleeasteye.net/rss',                          'region': 'israel' },
-    'bbc_israel':       { 'url': 'https://feeds.bbci.co.uk/news/world/rss.xml',                'region': 'israel' },
-    'cnn_israel':       { 'url': 'http://rss.cnn.com/rss/edition_world.rss',                   'region': 'israel' },
-    'aljazeera_israel': { 'url': 'https://www.aljazeera.com/xml/rss/all.xml',                  'region': 'israel' },
+    # USA
+    'voa':              { 'url': 'https://www.voanews.com/api/zmpq$_eqiez',                     'region': 'usa' },
+    'nyt':              { 'url': 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',      'region': 'usa' },
+    'wapo':             { 'url': 'https://feeds.washingtonpost.com/rss/world',                  'region': 'usa' },
+    'theintercept':     { 'url': 'https://theintercept.com/feed/?rss',                          'region': 'usa' },
+    'democracynow':     { 'url': 'https://www.democracynow.org/democracynow.rss',               'region': 'usa' },
+    'cnn_usa':          { 'url': 'http://rss.cnn.com/rss/edition_world.rss',                    'region': 'usa' },
+    'aljazeera_usa':    { 'url': 'https://www.aljazeera.com/xml/rss/all.xml',                   'region': 'usa' },
+
+    # Israel
+    'jpost':            { 'url': 'https://www.jpost.com/Rss/RssFeedsHeadlines.aspx',           'region': 'israel' },
+    'timesofisrael':    { 'url': 'https://www.timesofisrael.com/feed/',                         'region': 'israel' },
+    '972mag':           { 'url': 'https://www.972mag.com/feed/',                                'region': 'israel' },
+    'bbc_israel':       { 'url': 'https://feeds.bbci.co.uk/news/world/rss.xml',                 'region': 'israel' },
+    'cnn_israel':       { 'url': 'http://rss.cnn.com/rss/edition_world.rss',                    'region': 'israel' },
+    'aljazeera_israel': { 'url': 'https://www.aljazeera.com/xml/rss/all.xml',                   'region': 'israel' },
+
+    # Palestine
+    'middleeasteye':    { 'url': 'https://www.middleeasteye.net/rss',                           'region': 'palestine' },
+    'mondoweiss':       { 'url': 'https://mondoweiss.net/feed/',                                'region': 'palestine' },
+    'bbc_palestine':    { 'url': 'https://feeds.bbci.co.uk/news/world/rss.xml',                 'region': 'palestine' },
+    'cnn_palestine':    { 'url': 'http://rss.cnn.com/rss/edition_world.rss',                    'region': 'palestine' },
+    'aljazeera_pal':    { 'url': 'https://www.aljazeera.com/xml/rss/all.xml',                   'region': 'palestine' },
 
     # India
-    'ddnews':           { 'url': 'https://ddnews.gov.in/feed/',                                'region': 'india' },
-    'ndtv':             { 'url': 'https://feeds.feedburner.com/ndtvnews-top-stories',          'region': 'india' },
-    'republic':         { 'url': 'https://www.republicworld.com/rss/india-news.xml',           'region': 'india' },
-    'timesnow':         { 'url': 'https://www.timesnownews.com/rss/india.xml',                 'region': 'india' },
-    'opindia':          { 'url': 'https://www.opindia.com/feed/',                              'region': 'india' },
-    'thewire':          { 'url': 'https://thewire.in/feed',                                    'region': 'india' },
-    'scroll':           { 'url': 'https://scroll.in/feed',                                     'region': 'india' },
-    'bbc_india':        { 'url': 'https://feeds.bbci.co.uk/news/world/asia/rss.xml',           'region': 'india' },
-    'cnn_india':        { 'url': 'http://rss.cnn.com/rss/edition_world.rss',                   'region': 'india' },
-    'aljazeera_india':  { 'url': 'https://www.aljazeera.com/xml/rss/all.xml',                  'region': 'india' },
+    'ddnews':           { 'url': 'https://ddnews.gov.in/feed/',                                 'region': 'india' },
+    'ndtv':             { 'url': 'https://feeds.feedburner.com/ndtvnews-top-stories',           'region': 'india' },
+    'republic':         { 'url': 'https://www.republicworld.com/rss/india-news.xml',            'region': 'india' },
+    'timesnow':         { 'url': 'https://www.timesnownews.com/rss/india.xml',                  'region': 'india' },
+    'opindia':          { 'url': 'https://www.opindia.com/feed/',                               'region': 'india' },
+    'thewire':          { 'url': 'https://thewire.in/feed',                                     'region': 'india' },
+    'scroll':           { 'url': 'https://scroll.in/feed',                                      'region': 'india' },
+    'bbc_india':        { 'url': 'https://feeds.bbci.co.uk/news/world/asia/rss.xml',            'region': 'india' },
+    'cnn_india':        { 'url': 'http://rss.cnn.com/rss/edition_world.rss',                    'region': 'india' },
+    'aljazeera_india':  { 'url': 'https://www.aljazeera.com/xml/rss/all.xml',                   'region': 'india' },
 
     # Pakistan
-    'dawn':             { 'url': 'https://www.dawn.com/feeds/home',                            'region': 'pakistan' },
-    'geo':              { 'url': 'https://www.geo.tv/rss/1/0',                                 'region': 'pakistan' },
-    'ary':              { 'url': 'https://arynews.tv/feed/',                                   'region': 'pakistan' },
-    'radiopakistan':    { 'url': 'https://www.radio.gov.pk/rss',                               'region': 'pakistan' },
-    'bbc_pakistan':     { 'url': 'https://feeds.bbci.co.uk/news/world/asia/rss.xml',           'region': 'pakistan' },
-    'cnn_pakistan':     { 'url': 'http://rss.cnn.com/rss/edition_world.rss',                   'region': 'pakistan' },
-    'aljazeera_pak':    { 'url': 'https://www.aljazeera.com/xml/rss/all.xml',                  'region': 'pakistan' },
+    'radiopakistan':    { 'url': 'https://www.radio.gov.pk/rss',                                'region': 'pakistan' },
+    'dawn':             { 'url': 'https://www.dawn.com/feeds/home',                             'region': 'pakistan' },
+    'geo':              { 'url': 'https://www.geo.tv/rss/1/0',                                  'region': 'pakistan' },
+    'ary':              { 'url': 'https://arynews.tv/feed/',                                    'region': 'pakistan' },
+    'bbc_pakistan':     { 'url': 'https://feeds.bbci.co.uk/news/world/asia/rss.xml',            'region': 'pakistan' },
+    'cnn_pakistan':     { 'url': 'http://rss.cnn.com/rss/edition_world.rss',                    'region': 'pakistan' },
+    'aljazeera_pak':    { 'url': 'https://www.aljazeera.com/xml/rss/all.xml',                   'region': 'pakistan' },
+
+    # Russia
+    'tass':             { 'url': 'https://tass.com/rss/v2.xml',                                 'region': 'russia' },
+    'rt':               { 'url': 'https://www.rt.com/rss/news/',                                'region': 'russia' },
+    'bbc_russia':       { 'url': 'https://feeds.bbci.co.uk/news/world/rss.xml',                 'region': 'russia' },
+    'cnn_russia':       { 'url': 'http://rss.cnn.com/rss/edition_world.rss',                    'region': 'russia' },
+    'aljazeera_russia': { 'url': 'https://www.aljazeera.com/xml/rss/all.xml',                   'region': 'russia' },
+    'dw':               { 'url': 'https://rss.dw.com/rdf/rss-en-all',                          'region': 'russia' },
+
+    # Ukraine
+    'kyiv_independent': { 'url': 'https://kyivindependent.com/feed/',                          'region': 'ukraine' },
+    'ukr_pravda':       { 'url': 'https://www.pravda.com.ua/eng/rss/view_news/',               'region': 'ukraine' },
+    'bbc_ukraine':      { 'url': 'https://feeds.bbci.co.uk/news/world/rss.xml',                'region': 'ukraine' },
+    'cnn_ukraine':      { 'url': 'http://rss.cnn.com/rss/edition_world.rss',                   'region': 'ukraine' },
+    'aljazeera_ukr':    { 'url': 'https://www.aljazeera.com/xml/rss/all.xml',                  'region': 'ukraine' },
 }
 
 def fetch_feed(url):
