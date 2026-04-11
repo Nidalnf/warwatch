@@ -1,0 +1,191 @@
+{
+  "tass": {
+    "name": "TASS",
+    "owner": "Russian federal government",
+    "funding": "State budget",
+    "founded": "1904",
+    "type": "State"
+  },
+  "rt": {
+    "name": "RT (Russia Today)",
+    "owner": "ANO TV Novosti",
+    "funding": "Russian federal budget",
+    "founded": "2005",
+    "type": "State"
+  },
+  "kyiv_independent": {
+    "name": "Kyiv Independent",
+    "owner": "Independent, employee owned",
+    "funding": "Reader subscriptions, grants from European foundations",
+    "founded": "2021",
+    "type": "Independent"
+  },
+  "ukr_pravda": {
+    "name": "Ukrainska Pravda",
+    "owner": "Pravda Publishing",
+    "funding": "Advertising, reader donations",
+    "founded": "2000",
+    "type": "Independent"
+  },
+  "bbc": {
+    "name": "BBC World",
+    "owner": "BBC, UK public broadcaster",
+    "funding": "UK TV licence fee and commercial revenue",
+    "founded": "1922",
+    "type": "Public broadcaster"
+  },
+  "dw": {
+    "name": "DW (Deutsche Welle)",
+    "owner": "German federal government",
+    "funding": "German federal budget",
+    "founded": "1953",
+    "type": "State funded, editorially independent by law"
+  },
+  "tehrantimes": {
+    "name": "Tehran Times",
+    "owner": "Islamic Republic of Iran",
+    "funding": "State budget",
+    "founded": "1979",
+    "type": "State"
+  },
+  "presstv": {
+    "name": "Press TV",
+    "owner": "Islamic Republic of Iran Broadcasting",
+    "funding": "State budget",
+    "founded": "2007",
+    "type": "State"
+  },
+  "iranintl": {
+    "name": "Iran International",
+    "owner": "Volant Media, registered in UK",
+    "funding": "Private. Funded by Saudi Arabian businessman Bahram Shekuri and others.",
+    "founded": "2017",
+    "type": "Private/Exile"
+  },
+  "aljazeera": {
+    "name": "Al Jazeera",
+    "owner": "Al Jazeera Media Network",
+    "funding": "Funded by the government of Qatar",
+    "founded": "1996",
+    "type": "State funded"
+  },
+  "aljazeera_israel": {
+    "name": "Al Jazeera",
+    "owner": "Al Jazeera Media Network",
+    "funding": "Funded by the government of Qatar",
+    "founded": "1996",
+    "type": "State funded"
+  },
+  "bbc_iran": {
+    "name": "BBC Persian",
+    "owner": "BBC, UK public broadcaster",
+    "funding": "UK Foreign Commonwealth and Development Office",
+    "founded": "1940",
+    "type": "Public broadcaster"
+  },
+  "jpost": {
+    "name": "Jerusalem Post",
+    "owner": "Mirkaei Tikshoret Ltd",
+    "funding": "Advertising, subscriptions",
+    "founded": "1932",
+    "type": "Private"
+  },
+  "timesofisrael": {
+    "name": "Times of Israel",
+    "owner": "Times of Israel Ltd",
+    "funding": "Advertising, subscriptions, reader support",
+    "founded": "2012",
+    "type": "Private/Independent"
+  },
+  "972mag": {
+    "name": "+972 Magazine",
+    "owner": "Non-profit cooperative, owned by its writers",
+    "funding": "Reader donations, grants including from New Israel Fund",
+    "founded": "2010",
+    "type": "Non-profit/Independent"
+  },
+  "middleeasteye": {
+    "name": "Middle East Eye",
+    "owner": "Middle East Eye Ltd, registered in UK",
+    "funding": "Private. Ownership not fully disclosed publicly.",
+    "founded": "2014",
+    "type": "Private"
+  },
+  "ddnews": {
+    "name": "DD News",
+    "owner": "Prasar Bharati, Indian public broadcaster",
+    "funding": "Indian government budget",
+    "founded": "1959",
+    "type": "State"
+  },
+  "ndtv": {
+    "name": "NDTV",
+    "owner": "Adani Group since December 2022",
+    "funding": "Advertising, subscriptions",
+    "founded": "1988",
+    "type": "Private"
+  },
+  "republic": {
+    "name": "Republic TV",
+    "owner": "ARG Outlier Media Asianet News",
+    "funding": "Advertising. Rajeev Chandrasekhar was an early investor, later became a BJP minister.",
+    "founded": "2017",
+    "type": "Private"
+  },
+  "timesnow": {
+    "name": "Times Now",
+    "owner": "Bennett Coleman and Co. Ltd, controlled by Sahu Jain family",
+    "funding": "Advertising",
+    "founded": "2006",
+    "type": "Private"
+  },
+  "opindia": {
+    "name": "OpIndia",
+    "owner": "Disruptive Media Network Pvt Ltd",
+    "funding": "Advertising, reader subscriptions",
+    "founded": "2014",
+    "type": "Private/Opinion"
+  },
+  "thewire": {
+    "name": "The Wire",
+    "owner": "Foundation for Independent Journalism, non-profit",
+    "funding": "Reader donations, grants including from Open Society Foundations",
+    "founded": "2015",
+    "type": "Non-profit/Independent"
+  },
+  "scroll": {
+    "name": "Scroll.in",
+    "owner": "Scroll Media Inc",
+    "funding": "Omidyar Network was an early funder. Now primarily advertising and subscriptions.",
+    "founded": "2014",
+    "type": "Private/Independent"
+  },
+  "dawn": {
+    "name": "Dawn",
+    "owner": "Herald Publications, Haroon family",
+    "funding": "Advertising, subscriptions",
+    "founded": "1941",
+    "type": "Private/Independent"
+  },
+  "geo": {
+    "name": "Geo News",
+    "owner": "Jang Group, Mir Shakil-ur-Rahman family",
+    "funding": "Advertising",
+    "founded": "2002",
+    "type": "Private"
+  },
+  "ary": {
+    "name": "ARY News",
+    "owner": "ARY Group, Abdul Razzak Yaqoob group, based in Dubai",
+    "funding": "Advertising",
+    "founded": "2004",
+    "type": "Private"
+  },
+  "radiopakistan": {
+    "name": "Radio Pakistan",
+    "owner": "Government of Pakistan",
+    "funding": "State budget",
+    "founded": "1947",
+    "type": "State"
+  }
+}
