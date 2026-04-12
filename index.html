@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WarWatch — Media From The Source</title>
+<title>WarWatch — Outside Your Algorithm</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
   :root {
     --bg: #0a0a0a;
@@ -34,17 +35,15 @@
   .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-red); animation: pulse 2s infinite; }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
-  /* About section */
   .about-section { border-bottom: 1px solid var(--border); padding: 2rem 2.5rem; max-width: 900px; }
   .about-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.08em; color: var(--accent-yellow); margin-bottom: 1rem; }
-  .about-section p { font-size: 0.85rem; line-height: 1.9; color: #aaa; margin-bottom: 0.8rem; }
-  .about-section p strong { color: var(--text); font-weight: 600; }
   .about-toggle { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; background: none; border: 1px solid var(--border); color: var(--muted); padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem; display: block; }
   .about-toggle:hover { border-color: var(--accent-yellow); color: var(--accent-yellow); }
   .about-text { display: none; }
   .about-text.visible { display: block; }
+  .about-text p { font-size: 0.85rem; line-height: 1.9; color: #aaa; margin-bottom: 0.8rem; }
+  .about-text p strong { color: var(--text); font-weight: 600; }
 
-  /* Search */
   .search-bar { display: flex; align-items: center; gap: 1rem; padding: 1rem 2.5rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
   .search-input { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 0.5rem 1rem; width: 300px; outline: none; transition: border-color 0.2s; }
   .search-input:focus { border-color: var(--accent-yellow); }
@@ -70,7 +69,24 @@
   .controls { display: flex; align-items: center; gap: 1rem; padding: 1rem 2.5rem; border-bottom: 1px solid var(--border); }
   .btn-refresh { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; background: none; border: 1px solid var(--border); color: var(--muted); padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s; }
   .btn-refresh:hover { border-color: var(--accent-yellow); color: var(--accent-yellow); }
+  .btn-analysis { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; background: none; border: 1px solid var(--accent-yellow); color: var(--accent-yellow); padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s; }
+  .btn-analysis:hover { background: var(--accent-yellow); color: var(--bg); }
   .last-updated { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--muted); }
+
+  /* Analysis section */
+  .analysis-section { display: none; padding: 2rem 2.5rem; border-bottom: 1px solid var(--border); }
+  .analysis-section.visible { display: block; }
+  .analysis-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+  .analysis-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.08em; color: var(--accent-yellow); }
+  .analysis-toggle { display: flex; gap: 0; }
+  .toggle-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; background: none; border: 1px solid var(--border); color: var(--muted); padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s; }
+  .toggle-btn.active { background: var(--accent-yellow); color: var(--bg); border-color: var(--accent-yellow); }
+  .analysis-note { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 1.5rem; }
+  .chart-card { border: 1px solid var(--border); background: var(--surface); padding: 1.2rem; }
+  .chart-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; color: var(--text); }
+  .chart-container { position: relative; height: 220px; }
+  .analysis-empty { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--muted); text-align: center; padding: 2rem; }
 
   .main { padding: 2rem 2.5rem; }
   .region-panel { display: none; }
@@ -86,11 +102,9 @@
   .source-tag.international { background: var(--tag-intl); color: #99ccff; }
   .source-tag.opinion { background: var(--tag-opinion); color: #ffcc88; }
   .source-tag.exile { background: var(--tag-exile); color: #cc99ff; }
-
   .outlet-info { display: none; padding: 1rem 1.2rem; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02); font-size: 0.75rem; line-height: 1.8; color: var(--muted); }
   .outlet-info.visible { display: block; }
   .outlet-info span { color: var(--text); font-weight: 400; }
-
   .articles-list { list-style: none; }
   .article-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border); transition: background 0.15s; animation: fadeIn 0.4s ease; }
   .article-item:last-child { border-bottom: none; }
@@ -99,15 +113,14 @@
   @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
   .article-title { font-size: 0.85rem; font-weight: 400; line-height: 1.45; color: var(--text); text-decoration: none; display: block; margin-bottom: 0.4rem; }
   .article-title:hover { color: var(--accent-yellow); }
-  .article-title mark { background: rgba(230, 184, 0, 0.25); color: var(--accent-yellow); border-radius: 2px; padding: 0 2px; }
+  .article-title mark { background: rgba(230,184,0,0.25); color: var(--accent-yellow); border-radius: 2px; padding: 0 2px; }
   .article-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--muted); }
   .loading-state, .error-state { padding: 2rem 1.2rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--muted); text-align: center; }
   .error-state { color: #444; }
-  .no-results { padding: 1rem 1.2rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: #444; text-align: center; display: none; }
 
   @media (max-width: 600px) {
-    header, .region-nav, .controls, .legend, .main, .search-bar, .about-section { padding-left: 1rem; padding-right: 1rem; }
-    .columns { grid-template-columns: 1fr; }
+    header, .region-nav, .controls, .legend, .main, .search-bar, .about-section, .analysis-section { padding-left: 1rem; padding-right: 1rem; }
+    .columns, .charts-grid { grid-template-columns: 1fr; }
     .search-input { width: 100%; }
   }
 </style>
@@ -117,7 +130,7 @@
 <header>
   <div class="logo-block">
     <h1>WAR<span>WATCH</span></h1>
-    <p>Read outside your Algorithm</p>
+    <p>Outside your algorithm</p>
   </div>
   <div class="live-indicator">
     <div class="live-dot"></div>
@@ -128,12 +141,12 @@
 <div class="about-section">
   <button class="about-toggle" id="aboutToggle">About this site ↓</button>
   <div class="about-text" id="aboutText">
-    <p>News is a weapon. Especially during war. Most of us only see news from our own country — filtered by algorithm, shaped by whoever funds it.</p>
+    <p>News is a weapon. Especially during war. Most of us only see news from our own country — filtered by algorithm, shaped by whoever funds it. In troubled times, every country wants to protect its image.</p>
     <p>We live in a moment where truth is diffused. We all seem to know something and nothing at the same time.</p>
     <p>The internet is an empowering space — but only if we use it intentionally. Instead of letting algorithms decide what we see, we should have the option to look ourselves.</p>
     <p>WarWatch shows you <strong>who funds each outlet</strong>. Because funding gives direction — on who does what, and for whom.</p>
     <p><strong>This is not a fact-checker. It is a window. What you do with the view is up to you.</strong></p>
-    <p style="font-size:0.75rem; color: #555;">Click any outlet name to see ownership and funding. Use the search bar to filter headlines across all columns by any keyword. Some feeds appear in their original language — right-click any headline and select "Translate to English" in your browser. We are working on bringing translations directly to the page. Some feeds appear in their original language — right-click any headline and select "Translate to English" in your browser. We are working on bringing translations directly to the page.</p>
+    <p style="font-size:0.75rem;color:#555;">Click any outlet name to see ownership and funding. Use the search bar to filter headlines across all columns by any keyword. Some feeds appear in their original language — right-click any headline and select "Translate to English" in your browser. We are working on bringing translations directly to the page.</p>
   </div>
 </div>
 
@@ -164,7 +177,22 @@
 
 <div class="controls">
   <button class="btn-refresh" id="refreshBtn">Refresh feeds</button>
+  <button class="btn-analysis" id="analysisBtn">Word Frequency Analysis ↓</button>
   <span class="last-updated" id="lastUpdated">—</span>
+</div>
+
+<div class="analysis-section" id="analysisSection">
+  <div class="analysis-header">
+    <span class="analysis-title">Word Frequency Analysis</span>
+    <div class="analysis-toggle">
+      <button class="toggle-btn active" id="toggleToday" onclick="switchAnalysis('today')">Today</button>
+      <button class="toggle-btn" id="toggle7days" onclick="switchAnalysis('week')">Last 7 Days</button>
+    </div>
+  </div>
+  <div class="analysis-note" id="analysisNote">Showing most frequent words in headlines today. Data grows as feeds are refreshed.</div>
+  <div class="charts-grid" id="chartsGrid">
+    <div class="analysis-empty">Load feeds first, then open analysis to see word frequency charts.</div>
+  </div>
 </div>
 
 <main class="main">
@@ -250,7 +278,7 @@
   <div class="region-panel" id="panel-israel">
     <div class="columns">
       <div class="source-column">
-        <div class="source-header" onclick="toggleInfo('jpost')"><span class="source-name">Jerusalem Post</span><span class="source-tag state">Private</span></div>
+        <div class="source-header" onclick="toggleInfo('jpost')"><span class="source-name">Jerusalem Post</span><span class="source-tag independent">Private</span></div>
         <div class="outlet-info" id="info-jpost"></div>
         <ul class="articles-list" id="feed-jpost"><li class="loading-state">Loading...</li></ul>
       </div>
@@ -482,14 +510,14 @@
 <script>
 let outlets = {};
 let currentRegion = 'iran';
+let currentAnalysisMode = 'today';
+let analysisCharts = {};
 
 async function loadOutlets() {
   try {
     const res = await fetch('/outlets');
     outlets = await res.json();
-  } catch(e) {
-    console.error('Could not load outlets data', e);
-  }
+  } catch(e) { console.error('Could not load outlets', e); }
 }
 
 function toggleInfo(sourceId) {
@@ -508,7 +536,7 @@ function toggleInfo(sourceId) {
       <div><span>Type:</span> ${data.type}</div>
     `;
   } else {
-    infoDiv.innerHTML = `<div>No data available.</div>`;
+    infoDiv.innerHTML = '<div>No data available.</div>';
   }
   infoDiv.classList.add('visible');
 }
@@ -516,30 +544,24 @@ function toggleInfo(sourceId) {
 function applySearch(term) {
   const query = term.toLowerCase().trim();
   let totalVisible = 0;
-
   document.querySelectorAll('.article-item').forEach(item => {
     const titleEl = item.querySelector('.article-title');
     if (!titleEl) return;
     const originalTitle = titleEl.getAttribute('data-original') || titleEl.textContent;
     titleEl.setAttribute('data-original', originalTitle);
-
     if (!query) {
       item.classList.remove('hidden');
       titleEl.innerHTML = originalTitle;
       totalVisible++;
     } else if (originalTitle.toLowerCase().includes(query)) {
       item.classList.remove('hidden');
-      const highlighted = originalTitle.replace(
-        new RegExp(`(${query})`, 'gi'),
-        '<mark>$1</mark>'
-      );
+      const highlighted = originalTitle.replace(new RegExp(`(${query})`, 'gi'), '<mark>$1</mark>');
       titleEl.innerHTML = highlighted;
       totalVisible++;
     } else {
       item.classList.add('hidden');
     }
   });
-
   const countEl = document.getElementById('searchCount');
   if (query) {
     countEl.textContent = `${totalVisible} result${totalVisible !== 1 ? 's' : ''} across all columns`;
@@ -563,7 +585,7 @@ async function loadRegion(region) {
           li.className = 'article-item';
           const date = article.date ? new Date(article.date).toLocaleDateString('en-GB', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}) : '';
           li.innerHTML = `
-            <a class="article-title" href="${article.link}" target="_blank" rel="noopener" data-original="${article.title.replace(/"/g, '&quot;')}">${article.title}</a>
+            <a class="article-title" href="${article.link}" target="_blank" rel="noopener" data-original="${article.title.replace(/"/g,'&quot;')}">${article.title}</a>
             <span class="article-meta">${date}</span>
           `;
           list.appendChild(li);
@@ -575,9 +597,105 @@ async function loadRegion(region) {
     document.getElementById('lastUpdated').textContent = 'Updated ' + new Date().toLocaleTimeString();
     const currentSearch = document.getElementById('searchInput').value;
     if (currentSearch) applySearch(currentSearch);
+
+    if (document.getElementById('analysisSection').classList.contains('visible')) {
+      loadAnalysis(region);
+    }
+  } catch(e) { console.error(e); }
+}
+
+const COLORS = [
+  '#c0392b','#e6b800','#2980b9','#27ae60','#8e44ad',
+  '#e67e22','#16a085','#d35400','#2c3e50','#7f8c8d'
+];
+
+async function loadAnalysis(region) {
+  const grid = document.getElementById('chartsGrid');
+  grid.innerHTML = '<div class="analysis-empty">Loading analysis...</div>';
+
+  try {
+    const res = await fetch('/analysis/' + region);
+    const data = await res.json();
+    const modeData = data[currentAnalysisMode];
+
+    if (!modeData || Object.keys(modeData).length === 0) {
+      grid.innerHTML = '<div class="analysis-empty">No data yet. Refresh feeds to start collecting.</div>';
+      return;
+    }
+
+    Object.values(analysisCharts).forEach(c => c.destroy());
+    analysisCharts = {};
+    grid.innerHTML = '';
+
+    let colorIndex = 0;
+    for (const [sourceId, wordCounts] of Object.entries(modeData)) {
+      if (!wordCounts || wordCounts.length === 0) continue;
+
+      const outletName = outlets[sourceId]?.name || sourceId;
+      const color = COLORS[colorIndex % COLORS.length];
+      colorIndex++;
+
+      const card = document.createElement('div');
+      card.className = 'chart-card';
+      card.innerHTML = `
+        <div class="chart-title">${outletName}</div>
+        <div class="chart-container"><canvas id="chart-${sourceId}"></canvas></div>
+      `;
+      grid.appendChild(card);
+
+      const labels = wordCounts.map(w => w[0]);
+      const values = wordCounts.map(w => w[1]);
+
+      const ctx = document.getElementById('chart-' + sourceId).getContext('2d');
+      analysisCharts[sourceId] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            data: values,
+            backgroundColor: color + '99',
+            borderColor: color,
+            borderWidth: 1,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+          },
+          scales: {
+            x: {
+              ticks: { color: '#666', font: { family: 'IBM Plex Mono', size: 10 } },
+              grid: { color: '#1a1a1a' }
+            },
+            y: {
+              ticks: { color: '#666', font: { family: 'IBM Plex Mono', size: 10 } },
+              grid: { color: '#1a1a1a' }
+            }
+          }
+        }
+      });
+    }
+
+    if (grid.children.length === 0) {
+      grid.innerHTML = '<div class="analysis-empty">No data yet. Refresh feeds to start collecting.</div>';
+    }
+
   } catch(e) {
+    grid.innerHTML = '<div class="analysis-empty">Could not load analysis.</div>';
     console.error(e);
   }
+}
+
+function switchAnalysis(mode) {
+  currentAnalysisMode = mode;
+  document.getElementById('toggleToday').classList.toggle('active', mode === 'today');
+  document.getElementById('toggle7days').classList.toggle('active', mode === 'week');
+  document.getElementById('analysisNote').textContent = mode === 'today'
+    ? 'Showing most frequent words in headlines today. Data grows as feeds are refreshed.'
+    : 'Showing most frequent words in headlines over the last 7 days.';
+  loadAnalysis(currentRegion);
 }
 
 // Tab switching
@@ -597,11 +715,24 @@ document.getElementById('refreshBtn').addEventListener('click', () => {
   loadRegion(currentRegion);
 });
 
+// Analysis toggle
+document.getElementById('analysisBtn').addEventListener('click', () => {
+  const section = document.getElementById('analysisSection');
+  const btn = document.getElementById('analysisBtn');
+  if (section.classList.contains('visible')) {
+    section.classList.remove('visible');
+    btn.textContent = 'Word Frequency Analysis ↓';
+  } else {
+    section.classList.add('visible');
+    btn.textContent = 'Word Frequency Analysis ↑';
+    loadAnalysis(currentRegion);
+  }
+});
+
 // Search
 document.getElementById('searchInput').addEventListener('input', e => {
   applySearch(e.target.value);
 });
-
 document.getElementById('searchClear').addEventListener('click', () => {
   document.getElementById('searchInput').value = '';
   applySearch('');

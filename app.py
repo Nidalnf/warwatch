@@ -2,6 +2,11 @@ from flask import Flask, jsonify
 import feedparser
 import requests
 import json
+import sqlite3
+import os
+from datetime import datetime, timedelta
+from collections import Counter
+import re
 
 app = Flask(__name__)
 
@@ -83,6 +88,78 @@ FEEDS = {
     'aljazeera_ukr':    { 'url': 'https://www.aljazeera.com/xml/rss/all.xml',                  'region': 'ukraine' },
 }
 
+STOPWORDS = set([
+    'the','a','an','and','or','but','in','on','at','to','for','of','with',
+    'is','are','was','were','be','been','being','have','has','had','do',
+    'does','did','will','would','could','should','may','might','shall',
+    'that','this','these','those','it','its','by','from','as','up','about',
+    'into','through','during','before','after','above','below','between',
+    'out','off','over','under','again','then','once','here','there','when',
+    'where','why','how','all','both','each','few','more','most','other',
+    'some','such','no','not','only','own','same','so','than','too','very',
+    'just','say','says','said','new','us','can','after','also','back',
+    'his','her','their','our','your','my','he','she','they','we','who',
+    'what','which','i','you','him','them','its','s','t','re','ve','ll',
+    'two','one','three','four','five','six','seven','eight','nine','ten',
+])
+
+DB_PATH = 'headlines.db'
+
+def init_db():
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS headlines (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            source_id TEXT,
+            region TEXT,
+            title TEXT,
+            link TEXT,
+            fetched_at TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+def save_headlines(source_id, region, articles):
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    now = datetime.utcnow().isoformat()
+    for article in articles:
+        if article.get('title'):
+            c.execute(
+                'INSERT INTO headlines (source_id, region, title, link, fetched_at) VALUES (?, ?, ?, ?, ?)',
+                (source_id, region, article['title'], article.get('link',''), now)
+            )
+    conn.commit()
+    conn.close()
+
+def get_word_counts(region, days=1):
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    since = (datetime.utcnow() - timedelta(days=days)).isoformat()
+    c.execute(
+        'SELECT source_id, title FROM headlines WHERE region=? AND fetched_at > ?',
+        (region, since)
+    )
+    rows = c.fetchall()
+    conn.close()
+
+    by_source = {}
+    for source_id, title in rows:
+        if source_id not in by_source:
+            by_source[source_id] = []
+        words = re.findall(r'\b[a-z]+\b', title.lower())
+        filtered = [w for w in words if w not in STOPWORDS and len(w) > 2]
+        by_source[source_id].extend(filtered)
+
+    result = {}
+    for source_id, words in by_source.items():
+        counter = Counter(words)
+        result[source_id] = counter.most_common(20)
+
+    return result
+
 def fetch_feed(url):
     try:
         response = requests.get(url, headers=HEADERS, timeout=15)
@@ -105,8 +182,17 @@ def get_feeds(region):
     results = {}
     for source_id, info in FEEDS.items():
         if info['region'] == region:
-            results[source_id] = fetch_feed(info['url'])
+            articles = fetch_feed(info['url'])
+            if articles:
+                save_headlines(source_id, region, articles)
+            results[source_id] = articles
     return jsonify(results)
+
+@app.route('/analysis/<region>')
+def get_analysis(region):
+    today = get_word_counts(region, days=1)
+    week = get_word_counts(region, days=7)
+    return jsonify({'today': today, 'week': week})
 
 @app.route('/outlets')
 def get_outlets():
@@ -116,6 +202,8 @@ def get_outlets():
 @app.route('/')
 def home():
     return open('index.html', encoding='utf-8').read()
+
+init_db()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False)
